@@ -2,14 +2,14 @@ package com.company;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GameLogic {
+class GameLogic {
 
-    Deck deck;
-    ConsoleView view;
-    int userScore;
-    int dealerScore;
-    boolean userStand= false;
-    boolean dealerStand= false;
+    private Deck deck;
+    private ConsoleView view;
+    private int userScore;
+    private int dealerScore;
+    private boolean userStand= false;
+    private boolean dealerStand= false;
 
 
 
@@ -20,9 +20,8 @@ public class GameLogic {
         startUpDraw();
     }
 
-    int getRandomNumber(int cardsInDeck) {
-        int rnd = ThreadLocalRandom.current().nextInt(1, cardsInDeck +1);
-        return rnd;
+    private int getRandomNumber(int cardsInDeck) {
+        return ThreadLocalRandom.current().nextInt(1, cardsInDeck +1);
     }
 
     private void resetDeck() {
@@ -33,7 +32,7 @@ public class GameLogic {
         dealerStand= false;
     }
 
-    void startUpDraw() {
+    private void startUpDraw() {
         Card card;
         card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
         view.printDrawnCard(card.printCardInfo());
@@ -83,7 +82,7 @@ public class GameLogic {
                 Card card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
                 view.printDrawnCard(card.printCardInfo());
                 userScore = userScore + card.getScoreValue();
-                if (userScore > 21 && card.cardIdx == 1) userScore= userScore - 10;
+                if (userScore > 21 && card.getCardIdx() == 1) userScore= userScore - 10;
 
                 view.printUserScore(userScore);
 
@@ -183,17 +182,10 @@ public class GameLogic {
 
 
     private boolean checkDealerBlackjack() {
-
-        if (dealerScore == 21) {
-            return true;
-        }
-        return false;
+        return dealerScore == 21;
     }
 
     private boolean checkUserBlackjack() {
-        if (userScore == 21) {
-            return  true;
-        }
-        return false;
+        return userScore == 21;
     }
 }

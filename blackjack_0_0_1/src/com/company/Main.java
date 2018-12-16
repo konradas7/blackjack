@@ -3,11 +3,8 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
 
-
-        //init game logic
-        GameLogic gameLogic = new GameLogic();
+        new GameLogic();
 
 
     }

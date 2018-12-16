@@ -3,11 +3,10 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+class Deck {
 
 
-    List<Card> cardDeck = new ArrayList<>();
-    int z= 0;
+    private List<Card> cardDeck = new ArrayList<>();
     Deck() {
         for (int i=1; i < 14; i++) {
 
@@ -15,7 +14,6 @@ public class Deck {
 
                 Card tempCard= new Card(i, j);
                 cardDeck.add(tempCard);
-                z++;
             }
         }
     }

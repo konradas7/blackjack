@@ -2,12 +2,12 @@ package com.company;
 
 import java.util.Scanner;
 
-public class ConsoleView {
+class ConsoleView {
 
 
-    String tempText;
+    private String tempText;
 
-    void print() {
+    private void print() {
         System.out.println(tempText);
     }
 
@@ -20,9 +20,7 @@ public class ConsoleView {
             Scanner scanIn = new Scanner(System.in);
             String choice = "n";
             choice = scanIn.nextLine();
-            if (choice.equalsIgnoreCase("Y")) {
-                return true;
-            } else return false;
+        return choice.equalsIgnoreCase("Y");
 
 
     }
@@ -73,7 +71,7 @@ public class ConsoleView {
     }
 
 
-    public void printDealerStand() {
+    void printDealerStand() {
         tempText = "Dealer stands";
         print();
     }

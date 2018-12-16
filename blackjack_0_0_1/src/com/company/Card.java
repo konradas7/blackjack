@@ -2,11 +2,11 @@ package com.company;
 
 public class Card {
 
-    int cardIdx;
-    int scoreValue;
-    int suite;
-    String cardName;
-    String suiteName;
+    private int cardIdx;
+    private int scoreValue;
+    private int suite;
+    private String cardName;
+    private String suiteName;
 
 
     Card(int idx, int suiteidx) {
@@ -102,7 +102,7 @@ public class Card {
     }
 
     String printCardInfo() {
-        String temp= "";
+        String temp;
         temp= cardName + " of " + suiteName + ".";
         return temp;
     }
@@ -110,6 +110,8 @@ public class Card {
     int getScoreValue() {
         return scoreValue;
     }
+    public int getCardIdx() { return cardIdx;}
+
 
 
 
