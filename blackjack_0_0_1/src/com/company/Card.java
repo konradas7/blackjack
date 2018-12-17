@@ -1,19 +1,17 @@
 package com.company;
 
-public class Card {
+class Card {
 
     private int cardIdx;
     private int scoreValue;
-    private int suite;
     private String cardName;
     private String suiteName;
 
 
     Card(int idx, int suiteidx) {
-        suite = suiteidx;
         cardIdx = idx;
 
-        switch (suite) {
+        switch (suiteidx) {
             case 1: {
                 suiteName= "Hearts";
                 break;
@@ -110,7 +108,7 @@ public class Card {
     int getScoreValue() {
         return scoreValue;
     }
-    public int getCardIdx() { return cardIdx;}
+    int getCardIdx() { return cardIdx;}
 
 
 

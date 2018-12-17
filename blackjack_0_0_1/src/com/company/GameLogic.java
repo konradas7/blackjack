@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 class GameLogic {
 
     private Deck deck;
-    private ConsoleView view;
+    private ConsoleInterface view;
     private int userScore;
     private int dealerScore;
     private boolean userStand= false;
@@ -18,6 +18,10 @@ class GameLogic {
         view = new ConsoleView();
         resetDeck();
         startUpDraw();
+    }
+
+    GameLogic(Boolean test) {
+        resetDeck();
     }
 
     private int getRandomNumber(int cardsInDeck) {
@@ -33,25 +37,11 @@ class GameLogic {
     }
 
     private void startUpDraw() {
-        Card card;
-        card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-        view.printDrawnCard(card.printCardInfo());
-        userScore = userScore + card.getScoreValue();
+        userDrawAction();
+        dealerDrawnAction();
+        userDrawAction();
+        dealerDrawnAction();
 
-        card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-        view.printEnemyDraw(card.printCardInfo());
-        dealerScore = dealerScore + card.getScoreValue();
-
-        card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-        view.printDrawnCard(card.printCardInfo());
-        userScore = userScore + card.getScoreValue();
-
-        card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-        view.printEnemyDraw(card.printCardInfo());
-        dealerScore = dealerScore + card.getScoreValue();
-
-        view.printUserScore(userScore);
-        view.printEnemyScore(dealerScore);
 
         if (checkUserBlackjack()) {
             view.printUserBlackjack();
@@ -69,6 +59,14 @@ class GameLogic {
 
     }
 
+    private void userDrawAction() {
+        Card card;
+        card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
+        view.printDrawnCard(card.printCardInfo());
+        userScore = userScore + card.getScoreValue();
+        view.printUserScore(userScore);
+    }
+
     private void userDraw() {
         if (!userStand) {
             if ((userScore > dealerScore) && (dealerStand)) {
@@ -79,12 +77,7 @@ class GameLogic {
             view.askUserHit();
 
             if (view.userChoice()) {
-                Card card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-                view.printDrawnCard(card.printCardInfo());
-                userScore = userScore + card.getScoreValue();
-                if (userScore > 21 && card.getCardIdx() == 1) userScore= userScore - 10;
-
-                view.printUserScore(userScore);
+                userDrawAction();
 
                 if (userScore > 21) {
                     restartGameUserLost();
@@ -135,40 +128,26 @@ class GameLogic {
             if ((dealerScore > userScore) && (userStand)) {
                 restartGameUserLost();
             }
-
-            if (dealerScore > 16) {
+            else if ((dealerScore < userScore) && (userStand)) {
+                dealerDrawnAction();
+            }
+            else if ((dealerScore == userScore) && (userStand)) {
                 view.printDealerStand();
-                dealerStand = true;
+                dealerStand= true;
             }
-
-            if ((dealerScore < userScore) && (userStand)) {
-                Card card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-                view.printEnemyDraw(card.printCardInfo());
-                dealerScore = dealerScore + card.getScoreValue();
-
-                view.printEnemyScore(dealerScore);
-
-                if (dealerScore > 21) {
-                    restartGameUserWin();
+            else {
+                if ((dealerScore > 16)) {
+                    view.printDealerStand();
+                    dealerStand= true;
+                }
+                else {
+                    dealerDrawnAction();
                 }
             }
-
-            if ((dealerScore == userScore) && (userStand)) {
-
-                    Card card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
-                    view.printEnemyDraw(card.printCardInfo());
-                    dealerScore = dealerScore + card.getScoreValue();
-
-                    view.printEnemyScore(dealerScore);
-
-                    if (dealerScore > 21) {
-                        restartGameUserWin();
-                    }
-
-                }
-            }
-
-
+        }
+        if (dealerScore > 21) {
+            restartGameUserWin();
+        }
 
                 if (dealerStand && userStand) {
                     if ((dealerScore > userScore)) {
@@ -179,6 +158,13 @@ class GameLogic {
                 }
     }
 
+    private void dealerDrawnAction() {
+        Card card = deck.drawCard(getRandomNumber(deck.cardsRemaining()));
+        view.printEnemyDraw(card.printCardInfo());
+        dealerScore = dealerScore + card.getScoreValue();
+
+        view.printEnemyScore(dealerScore);
+    }
 
 
     private boolean checkDealerBlackjack() {

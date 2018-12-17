@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Scanner;
 
-class ConsoleView {
+class ConsoleView implements ConsoleInterface {
 
 
     private String tempText;
@@ -11,12 +11,12 @@ class ConsoleView {
         System.out.println(tempText);
     }
 
-    void printDrawnCard(String text) {
+    public void printDrawnCard(String text) {
         tempText = "You have drawn: " + text;
         print();
     }
 
-    boolean userChoice() {
+    public boolean userChoice() {
             Scanner scanIn = new Scanner(System.in);
             String choice = "n";
             choice = scanIn.nextLine();
@@ -25,53 +25,53 @@ class ConsoleView {
 
     }
 
-    void askUserHit() {
+    public void askUserHit() {
         tempText= "Hit? (Y/N)";
         print();
     }
 
-    void askUserNewGame() {
+    public void askUserNewGame() {
         tempText= "Do you want to play again? (Y/N)";
         print();
     }
 
-    void printUserLost() {
+    public void printUserLost() {
         tempText= "Sorry, you have lost!";
         print();
     }
 
-    void printUserWin() {
+    public void printUserWin() {
         tempText= "Congratulations, you have won!";
         print();
     }
 
-    void printUserScore(int score) {
+    public void printUserScore(int score) {
         tempText= "Your score currently is: " + score;
         print();
     }
 
-    void printEnemyDraw(String text) {
+    public void printEnemyDraw(String text) {
         tempText= "The dealer has drawn a card: " + text;
         print();
     }
 
-    void printEnemyScore(int score) {
+    public void printEnemyScore(int score) {
         tempText= "The dealers score currently is: " + score;
         print();
     }
 
-    void printUserBlackjack() {
+    public void printUserBlackjack() {
         tempText= "Blackjack!";
         print();
     }
 
-    void printEnemyBlackjack() {
+    public void printEnemyBlackjack() {
         tempText= "Dealer Blackjack!";
         print();
     }
 
 
-    void printDealerStand() {
+    public void printDealerStand() {
         tempText = "Dealer stands";
         print();
     }

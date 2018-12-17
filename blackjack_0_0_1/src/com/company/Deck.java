@@ -7,6 +7,7 @@ class Deck {
 
 
     private List<Card> cardDeck = new ArrayList<>();
+    
     Deck() {
         for (int i=1; i < 14; i++) {
 
